@@ -1,3 +1,5 @@
+window.addEventListener('DOMContentLoaded', () => {
+
 // ===== Stałe (jak w Twoim kodzie) =====
 const SKLADKA_EMERYTALNA_UOP = 0.0976;
 const SKLADKA_RENTOWA_UOP    = 0.0150;
@@ -206,5 +208,6 @@ document.getElementById('z_calc').addEventListener('click', ()=>{
 
   set('z_netto', PLN(netto));
 });
+
 
 
