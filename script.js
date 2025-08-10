@@ -208,6 +208,8 @@ document.getElementById('z_calc').addEventListener('click', ()=>{
 
   set('z_netto', PLN(netto));
 });
+}); // end DOMContentLoaded
+
 
 
 
