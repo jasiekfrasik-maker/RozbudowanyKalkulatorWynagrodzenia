@@ -3,150 +3,208 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Rozbudowany Kalkulator Wynagrodzeń</title>
-  <link rel="stylesheet" href="style.css" />
+  <title>Kalkulator Wynagrodzeń</title>
+  <link rel="stylesheet" href="style.css?v=3" />
 </head>
 <body>
-  <main class="card">
-    <h1>Rozbudowany Kalkulator Wynagrodzeń</h1>
+  <main class="wrap">
+    <h1>Kalkulator Wynagrodzeń</h1>
 
     <nav class="tabs">
       <button class="tab active" data-tab="uop">Umowa o pracę</button>
-      <button class="tab" data-tab="zlec">Umowa zlecenie</button>
+      <button class="tab" data-tab="zlec">Umowa Zlecenie</button>
     </nav>
 
     <!-- UOP -->
     <section id="tab-uop" class="tab-panel active">
-      <div class="grid">
-        <fieldset class="row">
-          <legend>Tryb</legend>
-          <label><input type="radio" name="uop_tryb" value="godz" checked> Stawka godzinowa</label>
-          <label><input type="radio" name="uop_tryb" value="mies"> Kwota brutto (mies.)</label>
-        </fieldset>
+      <h2 class="section-title">Dane wejściowe</h2>
 
-        <label>Stawka godzinowa / kwota brutto
-          <input id="uop_stawka_kwota" type="number" step="0.01" value="0">
+      <div class="grid-2">
+        <div class="row radio-row">
+          <div class="label strong">Tryb</div>
+          <div class="field">
+            <label class="radio"><input type="radio" name="uop_tryb" value="godz" checked> Stawka godzinowa</label>
+            <label class="radio"><input type="radio" name="uop_tryb" value="mies"> Kwota brutto (mies.)</label>
+          </div>
+        </div>
+
+        <label class="row">
+          <div class="label strong">Stawka godzinowa / kwota brutto</div>
+          <input id="uop_stawka_kwota" type="number" step="0.01" value="0" class="field">
         </label>
 
-        <label>Ilość zmian dziennych
-          <input id="uop_zm_dz" type="number" step="1" value="0">
-        </label>
-        <label>Ilość zmian nocnych
-          <input id="uop_zm_noc" type="number" step="1" value="0">
+        <label class="row">
+          <div class="label strong">Ilość zmian dziennych</div>
+          <input id="uop_zm_dz" type="number" step="1" value="0" class="field">
         </label>
 
-        <label>Długość zmiany (h)
-          <select id="uop_dl_zm">
+        <label class="row">
+          <div class="label strong">Ilość zmian nocnych</div>
+          <input id="uop_zm_noc" type="number" step="1" value="0" class="field">
+        </label>
+
+        <label class="row">
+          <div class="label strong">Długość zmiany (h)</div>
+          <select id="uop_dl_zm" class="field">
             <option>8</option><option>10</option><option selected>12</option>
           </select>
         </label>
 
-        <label>Premia brutto (zł)
-          <input id="uop_premia" type="number" step="0.01" value="0">
+        <label class="row">
+          <div class="label strong">Premia brutto (zł)</div>
+          <input id="uop_premia" type="number" step="0.01" value="0" class="field">
         </label>
 
-        <label>Nadgodziny dzienne (+50%) [h]
-          <input id="uop_ng_dz" type="number" step="1" value="0">
-        </label>
-        <label>Nadgodziny nocne (+50%) [h]
-          <input id="uop_ng_noc" type="number" step="1" value="0">
-        </label>
-        <label>Nadgodziny nocne w niedzielę (+100%) [h]
-          <input id="uop_ng_noc_100" type="number" step="1" value="0">
+        <label class="row">
+          <div class="label strong">Nadgodziny dzienne (+50%) [h]</div>
+          <input id="uop_ng_dz" type="number" step="1" value="0" class="field">
         </label>
 
-        <label>Dni L4 (80%)
-          <input id="uop_l4" type="number" step="1" value="0">
-        </label>
-        <label>Niewykorzystane dni urlopu
-          <input id="uop_urlop" type="number" step="1" value="0">
+        <label class="row">
+          <div class="label strong">Nadgodziny nocne (+50%) [h]</div>
+          <input id="uop_ng_noc" type="number" step="1" value="0" class="field">
         </label>
 
-        <label>Miesiąc (dodatek nocny/h)
-          <select id="uop_miesiac"></select>
+        <label class="row">
+          <div class="label strong">Nadgodziny nocne w niedzielę (+100%) [h]</div>
+          <input id="uop_ng_noc_100" type="number" step="1" value="0" class="field">
         </label>
 
-        <fieldset class="row">
-          <legend>Ulgi i opcje</legend>
-          <label><input id="uop_ppk" type="checkbox"> PPK (2%)</label>
-          <label><input id="uop_pit0" type="checkbox"> PIT‑0 (&lt;26/senior/4+)</label>
-        </fieldset>
+        <label class="row">
+          <div class="label strong">Dni na L4 (80%)</div>
+          <input id="uop_l4" type="number" step="1" value="0" class="field">
+        </label>
 
-        <label>Darowizny (mies. zł)
-          <input id="uop_darowizny" type="number" step="0.01" value="0">
+        <label class="row">
+          <div class="label strong">Niewykorzystane dni urlopu</div>
+          <input id="uop_urlop" type="number" step="1" value="0" class="field">
         </label>
-        <label>Internet (mies. zł)
-          <input id="uop_internet" type="number" step="0.01" value="0">
-        </label>
-        <label>Ulga na dziecko (mies. zł)
-          <input id="uop_dziecko" type="number" step="0.01" value="0">
+
+        <label class="row">
+          <div class="label strong">Miesiąc (dodatek nocny/h)</div>
+          <select id="uop_miesiac" class="field"></select>
         </label>
       </div>
 
-      <button id="uop_calc" class="primary">Oblicz (UoP)</button>
+      <h2 class="section-title">Ulgi i Odliczenia</h2>
 
-      <div class="two">
-        <div class="box">
-          <h3>Potrącenia</h3>
-          <ul id="uop_potr"></ul>
-          <div class="sum"><span>Suma potrąceń</span><strong id="uop_suma_potr">—</strong></div>
+      <div class="grid-2">
+        <div class="row checkbox-group">
+          <div class="label"></div>
+          <div class="field">
+            <label class="check"><input id="uop_ppk" type="checkbox"> Uczestniczę w PPK (2% składki)</label>
+            <label class="check"><input id="uop_pit0" type="checkbox"> Mam mniej niż 26 lat / Ulga PIT‑0 (senior, 4+)</label>
+          </div>
         </div>
-        <div class="box">
+
+        <label class="row">
+          <div class="label strong">Darowizny (kwota mies.)</div>
+          <div class="field with-hint">
+            <input id="uop_darowizny" type="number" step="0.01" value="0">
+          </div>
+        </label>
+
+        <label class="row">
+          <div class="label strong">Ulga na internet (kwota mies.)</div>
+          <div class="field with-hint">
+            <input id="uop_internet" type="number" step="0.01" value="0">
+            <span class="hint">max 63.33 zł/mies</span>
+          </div>
+        </label>
+
+        <label class="row">
+          <div class="label strong">Ulga na dziecko (kwota mies.)</div>
+          <div class="field with-hint">
+            <input id="uop_dziecko" type="number" step="0.01" value="0">
+            <span class="hint">np. 92.67 zł</span>
+          </div>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="uop_calc" class="btn primary">Oblicz Wynagrodzenie</button>
+      </div>
+
+      <div class="results two">
+        <div>
+          <h3>Potrącenia</h3>
+          <ul id="uop_potr" class="list"></ul>
+          <div class="sum">
+            <span>Suma potrąceń</span><strong id="uop_suma_potr">0,00 zł</strong>
+          </div>
+        </div>
+        <div>
           <h3>Podsumowanie</h3>
-          <ul id="uop_pods"></ul>
-          <div class="sum ok"><span>NA RĘKĘ</span><strong id="uop_netto">—</strong></div>
+          <ul id="uop_pods" class="list"></ul>
+          <div class="sum ok">
+            <span>NA RĘKĘ</span><strong id="uop_netto">0,00 zł</strong>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ZLECENIE -->
     <section id="tab-zlec" class="tab-panel">
-      <div class="grid">
-        <fieldset class="row">
-          <legend>Tryb</legend>
-          <label><input type="radio" name="z_tryb" value="godz" checked> Stawka godzinowa</label>
-          <label><input type="radio" name="z_tryb" value="mies"> Kwota brutto (mies.)</label>
-        </fieldset>
+      <h2 class="section-title">Dane wejściowe</h2>
 
-        <label>Stawka godzinowa / kwota brutto
-          <input id="z_stawka_kwota" type="number" step="0.01" value="0">
-        </label>
-        <label>Ilość zmian w miesiącu
-          <input id="z_zmian" type="number" step="1" value="0">
-        </label>
-        <label>Długość zmiany (h)
-          <select id="z_dl_zm"><option>8</option><option>10</option><option selected>12</option></select>
+      <div class="grid-2">
+        <div class="row radio-row">
+          <div class="label strong">Tryb</div>
+          <div class="field">
+            <label class="radio"><input type="radio" name="z_tryb" value="godz" checked> Stawka godzinowa</label>
+            <label class="radio"><input type="radio" name="z_tryb" value="mies"> Kwota brutto (mies.)</label>
+          </div>
+        </div>
+
+        <label class="row">
+          <div class="label strong">Stawka godzinowa / kwota brutto</div>
+          <input id="z_stawka_kwota" type="number" step="0.01" value="0" class="field">
         </label>
 
-        <fieldset class="row">
-          <legend>Opcje</legend>
-          <label><input id="z_student" type="checkbox"> Student/Uczeń do 26</label>
-          <label><input id="z_chor" type="checkbox"> Chorobowe dobrowolne (2.45%)</label>
-          <label><input id="z_pit0" type="checkbox"> PIT‑0 (&lt;26, nie student)</label>
-          <label><input id="z_pit2" type="checkbox" checked> PIT‑2 (kwota zmniejszająca)</label>
-        </fieldset>
+        <label class="row">
+          <div class="label strong">Ilość zmian w miesiącu</div>
+          <input id="z_zmian" type="number" step="1" value="0" class="field">
+        </label>
+
+        <label class="row">
+          <div class="label strong">Długość zmiany (h)</div>
+          <select id="z_dl_zm" class="field"><option>8</option><option>10</option><option selected>12</option></select>
+        </label>
+
+        <div class="row checkbox-group">
+          <div class="label strong">Opcje</div>
+          <div class="field">
+            <label class="check"><input id="z_student" type="checkbox"> Jestem studentem/uczniem do 26 r.ż.</label>
+            <label class="check"><input id="z_chor" type="checkbox"> Dobrowolna składka chorobowa (2.45%)</label>
+            <label class="check"><input id="z_pit0" type="checkbox"> Ulga PIT‑0 (&lt;26, nie student)</label>
+            <label class="check"><input id="z_pit2" type="checkbox" checked> PIT‑2 (kwota zmniejszająca)</label>
+          </div>
+        </div>
       </div>
 
-      <button id="z_calc" class="primary">Oblicz (Zlecenie)</button>
+      <div class="actions">
+        <button id="z_calc" class="btn primary">Oblicz Wynagrodzenie</button>
+      </div>
 
-      <div class="two">
-        <div class="box">
+      <div class="results two">
+        <div>
           <h3>Potrącenia</h3>
-          <ul id="z_potr"></ul>
+          <ul id="z_potr" class="list"></ul>
         </div>
-        <div class="box">
+        <div>
           <h3>Podsumowanie</h3>
-          <ul id="z_pods"></ul>
-          <div class="sum ok"><span>NA RĘKĘ</span><strong id="z_netto">—</strong></div>
+          <ul id="z_pods" class="list"></ul>
+          <div class="sum ok">
+            <span>NA RĘKĘ</span><strong id="z_netto">0,00 zł</strong>
+          </div>
         </div>
       </div>
     </section>
   </main>
 
-  <!-- skrypty na KOŃCU -->
-  <script src="script.js"></script>
+  <script src="script.js?v=3"></script>
   <script>
-    // proste przełączanie zakładek
+    // przełączanie zakładek
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.tab-panel');
     tabs.forEach(btn => btn.onclick = () => {
@@ -158,5 +216,6 @@
   </script>
 </body>
 </html>
+
 
 
