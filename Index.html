@@ -2,16 +2,13 @@
 <html lang="pl">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Kalkulator Wynagrodzeń – web</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rozbudowany Kalkulator Wynagrodzeń</title>
   <link rel="stylesheet" href="style.css" />
-  <!-- PyScript: Python w przeglądarce -->
-  <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
-  <script defer src="https://pyscript.net/latest/pyscript.js"></script>
 </head>
 <body>
   <main class="card">
-    <h1>Kalkulator Wynagrodzeń</h1>
+    <h1>Rozbudowany Kalkulator Wynagrodzeń</h1>
 
     <nav class="tabs">
       <button class="tab active" data-tab="uop">Umowa o pracę</button>
@@ -21,23 +18,33 @@
     <!-- UOP -->
     <section id="tab-uop" class="tab-panel active">
       <div class="grid">
-        <label>Miesięczna kwota brutto (zł)
-          <input id="uop_brutto" type="number" step="0.01" placeholder="np. 7000">
+        <fieldset class="row">
+          <legend>Tryb</legend>
+          <label><input type="radio" name="uop_tryb" value="godz" checked> Stawka godzinowa</label>
+          <label><input type="radio" name="uop_tryb" value="mies"> Kwota brutto (mies.)</label>
+        </fieldset>
+
+        <label>Stawka godzinowa / kwota brutto
+          <input id="uop_stawka_kwota" type="number" step="0.01" value="0">
         </label>
+
         <label>Ilość zmian dziennych
           <input id="uop_zm_dz" type="number" step="1" value="0">
         </label>
         <label>Ilość zmian nocnych
           <input id="uop_zm_noc" type="number" step="1" value="0">
         </label>
+
         <label>Długość zmiany (h)
           <select id="uop_dl_zm">
             <option>8</option><option>10</option><option selected>12</option>
           </select>
         </label>
+
         <label>Premia brutto (zł)
           <input id="uop_premia" type="number" step="0.01" value="0">
         </label>
+
         <label>Nadgodziny dzienne (+50%) [h]
           <input id="uop_ng_dz" type="number" step="1" value="0">
         </label>
@@ -47,91 +54,107 @@
         <label>Nadgodziny nocne w niedzielę (+100%) [h]
           <input id="uop_ng_noc_100" type="number" step="1" value="0">
         </label>
+
         <label>Dni L4 (80%)
           <input id="uop_l4" type="number" step="1" value="0">
         </label>
         <label>Niewykorzystane dni urlopu
           <input id="uop_urlop" type="number" step="1" value="0">
         </label>
-        <label>Miesiąc (dod. nocny)
-          <select id="uop_miesiac">
-            <option>Styczeń</option><option>Luty</option><option>Marzec</option><option>Kwiecień</option>
-            <option>Maj</option><option>Czerwiec</option><option selected>Lipiec</option><option>Sierpień</option>
-            <option>Wrzesień</option><option>Październik</option><option>Listopad</option><option>Grudzień</option>
-          </select>
-        </label>
-      </div>
 
-      <div class="grid">
-        <label><input id="uop_ppk" type="checkbox"> Jest PPK (2%)</label>
-        <label><input id="uop_pit0" type="checkbox"> PIT‑0 &lt;26 / senior / 4+</label>
-        <label>Darowizny (mies.)
+        <label>Miesiąc (dodatek nocny/h)
+          <select id="uop_miesiac"></select>
+        </label>
+
+        <fieldset class="row">
+          <legend>Ulgi i opcje</legend>
+          <label><input id="uop_ppk" type="checkbox"> PPK (2%)</label>
+          <label><input id="uop_pit0" type="checkbox"> PIT‑0 (&lt;26/senior/4+)</label>
+        </fieldset>
+
+        <label>Darowizny (mies. zł)
           <input id="uop_darowizny" type="number" step="0.01" value="0">
         </label>
-        <label>Internet (mies.)
+        <label>Internet (mies. zł)
           <input id="uop_internet" type="number" step="0.01" value="0">
         </label>
-        <label>Ulga na dziecko (mies.)
+        <label>Ulga na dziecko (mies. zł)
           <input id="uop_dziecko" type="number" step="0.01" value="0">
         </label>
       </div>
 
       <button id="uop_calc" class="primary">Oblicz (UoP)</button>
 
-      <div class="result">
-        <pre id="uop_out">—</pre>
+      <div class="two">
+        <div class="box">
+          <h3>Potrącenia</h3>
+          <ul id="uop_potr"></ul>
+          <div class="sum"><span>Suma potrąceń</span><strong id="uop_suma_potr">—</strong></div>
+        </div>
+        <div class="box">
+          <h3>Podsumowanie</h3>
+          <ul id="uop_pods"></ul>
+          <div class="sum ok"><span>NA RĘKĘ</span><strong id="uop_netto">—</strong></div>
+        </div>
       </div>
     </section>
 
     <!-- ZLECENIE -->
     <section id="tab-zlec" class="tab-panel">
       <div class="grid">
-        <label>Stawka godzinowa brutto (zł)
-          <input id="z_stawka" type="number" step="0.01" value="0">
+        <fieldset class="row">
+          <legend>Tryb</legend>
+          <label><input type="radio" name="z_tryb" value="godz" checked> Stawka godzinowa</label>
+          <label><input type="radio" name="z_tryb" value="mies"> Kwota brutto (mies.)</label>
+        </fieldset>
+
+        <label>Stawka godzinowa / kwota brutto
+          <input id="z_stawka_kwota" type="number" step="0.01" value="0">
         </label>
         <label>Ilość zmian w miesiącu
           <input id="z_zmian" type="number" step="1" value="0">
         </label>
         <label>Długość zmiany (h)
-          <select id="z_dl_zm">
-            <option>8</option><option>10</option><option selected>12</option>
-          </select>
+          <select id="z_dl_zm"><option>8</option><option>10</option><option selected>12</option></select>
         </label>
-        <label>Kwota brutto (zamiast stawki) – opcjonalnie
-          <input id="z_brutto_mies" type="number" step="0.01" value="0">
-        </label>
-      </div>
 
-      <div class="grid">
-        <label><input id="z_student" type="checkbox"> Student/Uczeń do 26</label>
-        <label><input id="z_chor" type="checkbox"> Dobrowolne chorobowe (2.45%)</label>
-        <label><input id="z_pit0" type="checkbox"> PIT‑0 (&lt;26, nie student)</label>
-        <label><input id="z_pit2" type="checkbox" checked> PIT‑2 (kwota zmniejszająca)</label>
+        <fieldset class="row">
+          <legend>Opcje</legend>
+          <label><input id="z_student" type="checkbox"> Student/Uczeń do 26</label>
+          <label><input id="z_chor" type="checkbox"> Chorobowe dobrowolne (2.45%)</label>
+          <label><input id="z_pit0" type="checkbox"> PIT‑0 (&lt;26, nie student)</label>
+          <label><input id="z_pit2" type="checkbox" checked> PIT‑2 (kwota zmniejszająca)</label>
+        </fieldset>
       </div>
 
       <button id="z_calc" class="primary">Oblicz (Zlecenie)</button>
 
-      <div class="result">
-        <pre id="z_out">—</pre>
+      <div class="two">
+        <div class="box">
+          <h3>Potrącenia</h3>
+          <ul id="z_potr"></ul>
+        </div>
+        <div class="box">
+          <h3>Podsumowanie</h3>
+          <ul id="z_pods"></ul>
+          <div class="sum ok"><span>NA RĘKĘ</span><strong id="z_netto">—</strong></div>
+        </div>
       </div>
     </section>
   </main>
 
-  <!-- Twój Python w przeglądarce -->
-  <py-script src="script.py"></py-script>
-
+  <script src="script.js"></script>
   <script>
-    // Proste przełączanie zakładek
+    // przełączanie zakładek
     const tabs = document.querySelectorAll('.tab');
     const panels = document.querySelectorAll('.tab-panel');
-    tabs.forEach(btn=>{
-      btn.onclick = () => {
-        tabs.forEach(b=>b.classList.remove('active'));
-        panels.forEach(p=>p.classList.remove('active'));
-        btn.classList.add('active');
-        document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
-      };
+    tabs.forEach(btn => btn.onclick = () => {
+      tabs.forEach(b=>b.classList.remove('active'));
+      panels.forEach(p=>p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tab-'+btn.dataset.tab).classList.add('active');
     });
   </script>
 </body>
 </html>
+
