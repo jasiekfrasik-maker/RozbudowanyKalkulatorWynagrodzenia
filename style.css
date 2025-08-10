@@ -1,80 +1,106 @@
-/* Ogólne */
+:root { color-scheme: light; }
+* { box-sizing: border-box; }
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f4f9ff; /* jasnoniebieskie tło */
-    color: #333; /* ciemny tekst */
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  background: #f4f9ff;            /* bardzo jasny niebieski */
+  color: #333;
 }
 
-/* Główna karta */
+/* Karta główna */
 .card {
-    background-color: #ffffff; /* białe tło */
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  max-width: 1080px;
+  margin: 28px auto;
+  background: #ffffff;            /* białe tło */
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.06);
+  padding: 22px;
 }
 
-/* Nagłówek */
-h1 {
-    text-align: center;
-    color: #007bff; /* niebieski */
+/* Zakładki */
+.tabs { display: flex; gap: 8px; margin: 8px 0 16px; }
+.tab {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #cfe2ff;      /* jasnoniebieska ramka */
+  background: #eaf3ff;            /* delikatny niebieski */
+  color: #0b3d91;                  /* ciemnoniebieski tekst */
+  cursor: pointer;
+  transition: background .2s, border-color .2s;
+}
+.tab:hover { background: #d9ecff; border-color: #b7d6ff; }
+.tab.active {
+  background: #2b6fff;            /* niebieski aktywny */
+  color: #fff;
+  border-color: #2b6fff;
 }
 
-/* Nawigacja - zakładki */
-.tabs {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 20px;
-}
+/* Sekcje/siatki */
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
 
-.tabs button {
-    padding: 10px 20px;
-    border: none;
-    cursor: pointer;
-    background-color: #e6e6e6; /* jasnoszary */
-    color: #333;
-    font-weight: bold;
-    border-radius: 5px;
-    margin: 0 5px;
-    transition: background-color 0.3s;
-}
-
-.tabs button:hover {
-    background-color: #d0e4ff; /* jaśniejszy niebieski na hover */
-}
-
-.tabs button.active {
-    background-color: #007bff; /* niebieski */
-    color: white;
-}
-
-/* Formularze */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-}
-
-label {
-    font-weight: bold;
-}
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; margin: 14px 0; }
+label { display: grid; gap: 6px; font-size: 14px; }
 
 input, select {
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+  padding: 10px 12px;
+  border: 1px solid #d7e3ff;      /* jasna niebieska obwódka */
+  border-radius: 10px;
+  background: #fff;
 }
 
-/* Wynik */
-.result {
-    margin-top: 20px;
-    padding: 15px;
-    background-color: #eaf3ff; /* jasnoniebieskie pole */
-    border-left: 4px solid #007bff;
-    border-radius: 5px;
-    font-weight: bold;
+/* Fieldsety */
+fieldset {
+  border: 1px solid #d7e9ff;
+  background: #f7fbff;            /* jaśniutkie tło */
+  border-radius: 10px;
+  padding: 8px 10px;
 }
+.row { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+
+/* Przycisk główny */
+.primary {
+  padding: 12px 18px;
+  border: 0;
+  border-radius: 12px;
+  background: #2b6fff;            /* niebieski */
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(43,111,255,.18);
+}
+.primary:hover { filter: brightness(1.05); }
+
+/* Wyniki */
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 12px; }
+.box {
+  background: #ffffff;            /* białe karty wyników */
+  border: 1px solid #e2eeff;      /* jasnoniebieska ramka */
+  border-radius: 12px;
+  padding: 12px;
+}
+h1 { margin: 0 0 10px; color: #2b6fff; } /* nagłówek w niebieskim */
+h3 { margin: 0 0 10px; color: #0b3d91; }
+
+ul { list-style: none; padding: 0; margin: 0; }
+ul li {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 8px 0;
+  border-bottom: 1px dashed #e2eeff;
+}
+ul li:last-child { border-bottom: 0; }
+
+.sum {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 8px; padding-top: 10px;
+  border-top: 2px solid #e2eeff;
+}
+.sum.ok strong { color: #0a8f4d; font-size: 20px; }
+
+/* RWD */
+@media (max-width: 820px){
+  .grid { grid-template-columns: 1fr; }
+  .two  { grid-template-columns: 1fr; }
+}
+
 
